@@ -1,13 +1,28 @@
 package com.sparta.springcore;
 
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Component
 public class ProductRepository {
+
+    private final String dbUrl;
+    private final String dbId;
+    private final String dbPassword;
+
+    public ProductRepository(String dbUrl, String dbId, String dbPassword){
+        this.dbId = dbId;
+        this.dbUrl = dbUrl;
+        this.dbPassword = dbPassword;
+    }
+
     public void createProduct(Product product) throws SQLException {
         // DB 연결
-        Connection connection = DriverManager.getConnection("jdbc:h2:mem:springcoredb", "sa", "");
+        Connection connection = getConnection();
 
 // DB Query 작성
         PreparedStatement ps = connection.prepareStatement("select max(id) as id from product");
@@ -36,10 +51,14 @@ public class ProductRepository {
 
     }
 
+    private Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(dbUrl, dbId, dbPassword);
+    }
+
     public Product getProduct(Long id) throws SQLException {
         Product product = new Product();
         // DB 연결
-        Connection connection = DriverManager.getConnection("jdbc:h2:mem:springcoredb", "sa", "");
+        Connection connection = getConnection();
 
 // DB Query 작성
         PreparedStatement ps = connection.prepareStatement("select * from product where id = ?");
@@ -63,7 +82,7 @@ public class ProductRepository {
     }
 
     public void updateMyPrice(Long id, int myprice) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:h2:mem:springcoredb", "sa", "");
+        Connection connection = getConnection();
         // DB Query 작성
         PreparedStatement ps = connection.prepareStatement("update product set myprice = ? where id = ?");
         ps.setInt(1, myprice);
@@ -80,7 +99,7 @@ public class ProductRepository {
     public List<Product> getProducts() throws SQLException {
         List<Product> products = new ArrayList<>();
         // DB 연결
-        Connection connection = DriverManager.getConnection("jdbc:h2:mem:springcoredb", "sa", "");
+        Connection connection = getConnection();
 
 // DB Query 작성 및 실행
         Statement stmt = connection.createStatement();
