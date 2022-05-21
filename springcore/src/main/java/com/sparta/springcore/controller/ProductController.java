@@ -1,9 +1,12 @@
-package com.sparta.springcore;
+package com.sparta.springcore.controller;
 
-import lombok.RequiredArgsConstructor;
+
+import com.sparta.springcore.model.Product;
+import com.sparta.springcore.dto.ProductMypriceRequestDto;
+import com.sparta.springcore.dto.ProductRequestDto;
+import com.sparta.springcore.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController // JSON으로 데이터를 주고받음을 선언합니다.
