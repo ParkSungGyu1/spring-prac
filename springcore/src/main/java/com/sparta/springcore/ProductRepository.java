@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Component
 public class ProductRepository {
 
     private final String dbUrl;
