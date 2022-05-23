@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @Entity // DB 테이블 역할을 합니다.
 public class Users {
     // nullable: null 허용 여부
-// unique: 중복 허용 여부 (false 일때 중복 허용)
+    // unique: 중복 허용 여부 (false 일때 중복 허용)
     @Id
     @Column(name = "id", nullable = false, unique = true)
     private String username;
