@@ -1,6 +1,7 @@
 package com.spring.springapiprac.controller;
 
 import com.spring.springapiprac.dto.NoticeDto;
+import com.spring.springapiprac.dto.PasswordCheckDto;
 import com.spring.springapiprac.model.Notice;
 import com.spring.springapiprac.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,16 @@ public class NoticeController {
         return noticeService.detailView(id);
     }*/
 
+    @PostMapping("/notice/detail/password")
+    public boolean passwordCheck(@RequestBody PasswordCheckDto passwordCheckDto){
+        PasswordCheckDto passwordCheckDto2 = noticeService.passwordCheck(passwordCheckDto);
+        return passwordCheckDto2.isResult();
+    }
+
     //저장 기능 ==> 저장이 완료 되었을 때 Http 상태를 리턴하고 싶다.
     @PostMapping("/notice/write")
-    public String noticeWrite(NoticeDto noticeDto){
+    public String noticeWrite(@RequestBody NoticeDto noticeDto){
         noticeService.noticeWrite(noticeDto);
-
         return "1";
     }
 
