@@ -1,5 +1,7 @@
 package com.spring.springapiprac.service;
 
+import com.spring.springapiprac.dto.NoticeChangeDto;
+import com.spring.springapiprac.dto.NoticeDeleteDto;
 import com.spring.springapiprac.dto.NoticeDto;
 import com.spring.springapiprac.dto.PasswordCheckDto;
 import com.spring.springapiprac.model.Notice;
@@ -42,5 +44,18 @@ public class NoticeService {
         }
 
         return passwordCheckDto;
+    }
+
+    public void noticeChange(NoticeChangeDto noticeChangeDto) {
+        Notice notice = noticeRepository.findById(noticeChangeDto.getId())
+                .orElseThrow(() -> new NullPointerException("해당 아이디가 존재하지 않습니다."));
+        notice.setDescription(noticeChangeDto.getDescription());
+        notice.setTitle(noticeChangeDto.getTitle());
+        notice.setUsername(noticeChangeDto.getUsername());
+        noticeRepository.save(notice);
+    }
+
+    public void noticeDelete(NoticeDeleteDto noticeDeleteDto) {
+        noticeRepository.delete(noticeRepository.findById(noticeDeleteDto.getId()).orElseThrow(() -> new NullPointerException("해당 아이디가 존재하지 않습니다.")));
     }
 }

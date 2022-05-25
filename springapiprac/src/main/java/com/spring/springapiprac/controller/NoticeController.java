@@ -1,5 +1,7 @@
 package com.spring.springapiprac.controller;
 
+import com.spring.springapiprac.dto.NoticeChangeDto;
+import com.spring.springapiprac.dto.NoticeDeleteDto;
 import com.spring.springapiprac.dto.NoticeDto;
 import com.spring.springapiprac.dto.PasswordCheckDto;
 import com.spring.springapiprac.model.Notice;
@@ -42,6 +44,20 @@ public class NoticeController {
     public boolean passwordCheck(@RequestBody PasswordCheckDto passwordCheckDto){
         PasswordCheckDto passwordCheckDto2 = noticeService.passwordCheck(passwordCheckDto);
         return passwordCheckDto2.isResult();
+    }
+
+    //게시글 수정
+    @PutMapping("/notice/detail/change")
+    public String noticeChange(@RequestBody NoticeChangeDto noticeChangeDto){
+        noticeService.noticeChange(noticeChangeDto);
+        return "1";
+    }
+
+    //게시글 삭제
+    @DeleteMapping("/notice/detail/delete")
+    public String noticeDelete(@RequestBody NoticeDeleteDto noticeDeleteDto){
+        noticeService.noticeDelete(noticeDeleteDto);
+        return "1";
     }
 
     //저장 기능 ==> 저장이 완료 되었을 때 Http 상태를 리턴하고 싶다.
